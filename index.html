@@ -122,6 +122,82 @@
             margin-right: 4px
         }
 
+        /* GLOBAL BANNER */
+        .global-banner {
+            padding: 10px 20px 0;
+            max-width: 1280px;
+            margin: 0 auto
+        }
+
+        .global-listen-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(201, 147, 10, .15), rgba(201, 147, 10, .08));
+            border: 1px solid rgba(201, 147, 10, .35);
+            color: var(--gold2);
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-family: "Bebas Neue", sans-serif;
+            font-size: 16px;
+            letter-spacing: .1em;
+            transition: all .25s
+        }
+
+        .global-listen-btn:hover {
+            background: linear-gradient(135deg, rgba(201, 147, 10, .28), rgba(201, 147, 10, .15));
+            box-shadow: 0 0 30px rgba(201, 147, 10, .2);
+            transform: translateY(-1px)
+        }
+
+        .global-listen-btn svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0
+        }
+
+        /* ALBUM HEADER with cover */
+        .album-cover {
+            width: 56px;
+            height: 56px;
+            border-radius: 7px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--border)
+        }
+
+        .album-listen {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .04em;
+            color: var(--gold2);
+            text-decoration: none;
+            background: rgba(201, 147, 10, .1);
+            border: 1px solid rgba(201, 147, 10, .25);
+            border-radius: 7px;
+            padding: 6px 12px;
+            transition: all .2s;
+            white-space: nowrap;
+            flex-shrink: 0
+        }
+
+        .album-listen:hover {
+            background: rgba(201, 147, 10, .2);
+            box-shadow: 0 0 16px rgba(201, 147, 10, .15)
+        }
+
+        .album-listen svg {
+            width: 12px;
+            height: 12px
+        }
+
         /* ── NAV FILTERS ── */
         nav {
             position: sticky;
@@ -729,6 +805,15 @@
         <input type="text" id="search" placeholder="Buscar música..." autocomplete="off">
     </div>
 
+    <div class="global-banner">
+        <a href="https://suno.com/playlist/d0b8349e-f275-4cc9-a19a-5b30eee96f9c" target="_blank" class="global-listen-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3a9 9 0 100 18A9 9 0 0012 3zm-1 13V8l6 4-6 4z" />
+            </svg>
+            ESCUTE TODAS AS MÚSICAS DE UMA VEZ NO SUNO
+        </a>
+    </div>
+
     <main id="catalog"></main>
 
     <div id="modal-overlay" onclick="closeModal()"></div>
@@ -762,8 +847,8 @@
         const ALBUMS = [
             { id: 'all', name: 'Todas', color: '#c9930a', playlist: null },
             { id: 'live', name: 'Da Banda — Ao Vivo', color: '#22c55e', playlist: 'https://suno.com/playlist/d0b8349e-f275-4cc9-a19a-5b30eee96f9c' },
-            { id: 'sfn', name: 'Songs from Nowhere', color: '#60a5fa', playlist: 'https://suno.com/song/1c055dd3-5747-4316-8026-4ec52f1f1eb9' },
-            { id: 'ds', name: 'Dual Side EP', color: '#a78bfa', playlist: 'https://suno.com/song/061e829f-b677-42c7-af02-524620d1534b' },
+            { id: 'sfn', name: 'Songs from Nowhere', color: '#60a5fa', playlist: 'https://suno.com/playlist/6b7a382a-1932-401d-b431-ab41694d56ba' },
+            { id: 'ds', name: 'Dual Side EP', color: '#a78bfa', playlist: 'https://suno.com/playlist/f668fdca-b66a-454b-a342-772af63a1813' },
             { id: 'apo', name: 'Post-Apocalyptical Crysis', color: '#f87171', playlist: 'https://suno.com/playlist/a54aa117-108d-4a58-9de2-aad83ae5d96a' },
             { id: 'dev', name: 'Project Deviatte', color: '#fbbf24', playlist: 'https://suno.com/playlist/c3cbed2c-e1d7-41e5-8959-0490b520ab3a' },
             { id: 'gj', name: 'Game Journey EP', color: '#2dd4bf', playlist: 'https://suno.com/playlist/47ea4a8f-861a-4475-bc1d-087c6462423b' },
@@ -1286,7 +1371,7 @@ If you're empty deep inside
             {
                 id: 'cant-wait', num: '10', album: 'sfn', title: "Can't Wait for the Sun",
                 credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '2:39',
-                suno: 'https://suno.com/playlist/6b7a382a-1932-401d-b431-ab41694d56ba',
+                suno: 'https://suno.com/song/1c055dd3-5747-4316-8026-4ec52f1f1eb9',
                 lyrics: `##VERSE 1
 I'm tired of sitting down just waiting for a sign
 Tired of depending on the world to make it right
@@ -1458,7 +1543,7 @@ Becomes a present, wrapped in love`},
             {
                 id: 'hollow-present', num: '15', album: 'ds', title: 'Hollow Present',
                 credits: 'Asylum | Lyrics: IV  (par de Future Present)', status: 'letra', dur: '2:40',
-                suno: 'https://suno.com/playlist/f668fdca-b66a-454b-a342-772af63a1813',
+                suno: 'https://suno.com/song/061e829f-b677-42c7-af02-524620d1534b',
                 lyrics: `##VERSE 1
 I heard it on your screen
 The future you pursue
