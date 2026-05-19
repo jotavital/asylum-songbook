@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ASYLUM INMATES — Songbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070707;
+            --s1: #0f0f0f;
+            --s2: #151515;
+            --s3: #1c1c1c;
+            --border: #242424;
+            --gold: #c9930a;
+            --gold2: #e8aa15;
+            --glow: rgba(201, 147, 10, .18);
+            --white: #f0f0f0;
+            --gray: #6a6a6a;
+            --gray2: #999;
+            --green: #22c55e;
+            --blue: #60a5fa;
+            --amber: #f59e0b;
+            --red: #f87171;
+            --purple: #a78bfa;
+            --teal: #2dd4bf;
+            --pink: #f472b6;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'Barlow Condensed', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden
+        }
+
+        /* NOISE TEXTURE OVERLAY */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: .35
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: relative;
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            z-index: 1
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201, 147, 10, .12) 0%, transparent 70%);
+            pointer-events: none
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(52px, 10vw, 96px);
+            letter-spacing: .08em;
+            line-height: 1;
+            background: linear-gradient(160deg, #f5c842 0%, #c9930a 40%, #8a5e04 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 32px rgba(201, 147, 10, .3))
+        }
+
+        .tagline {
+            font-size: 13px;
+            letter-spacing: .35em;
+            color: var(--gray2);
+            text-transform: uppercase;
+            margin-top: 6px
+        }
+
+        .counts {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+            flex-wrap: wrap
+        }
+
+        .count-pill {
+            background: var(--s2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 12px;
+            color: var(--gray2);
+            letter-spacing: .05em
+        }
+
+        .count-pill span {
+            color: var(--gold2);
+            font-weight: 600;
+            margin-right: 4px
+        }
+
+        /* ── NAV FILTERS ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(7, 7, 7, .92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            -ms-overflow-style: none;
+            scrollbar-width: none
+        }
+
+        nav::-webkit-scrollbar {
+            display: none
+        }
+
+        .filter-tabs {
+            display: inline-flex;
+            gap: 2px;
+            padding: 10px 0
+        }
+
+        .tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .04em;
+            cursor: pointer;
+            transition: all .2s;
+            color: var(--gray2);
+            background: transparent;
+            white-space: nowrap
+        }
+
+        .tab:hover {
+            color: var(--white);
+            background: var(--s2)
+        }
+
+        .tab.active {
+            color: var(--gold2);
+            background: var(--glow);
+            border-color: rgba(201, 147, 10, .3)
+        }
+
+        .tab .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        /* ── SEARCH ── */
+        .search-wrap {
+            padding: 16px 20px 4px;
+            max-width: 500px;
+            position: relative;
+            z-index: 1
+        }
+
+        .search-wrap input {
+            width: 100%;
+            background: var(--s2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 15px;
+            padding: 10px 16px;
+            outline: none;
+            transition: border-color .2s
+        }
+
+        .search-wrap input::placeholder {
+            color: var(--gray)
+        }
+
+        .search-wrap input:focus {
+            border-color: rgba(201, 147, 10, .4)
+        }
+
+        /* ── MAIN CONTENT ── */
+        main {
+            padding: 20px;
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1
+        }
+
+        .album-section {
+            margin-bottom: 40px
+        }
+
+        .album-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .album-stripe {
+            width: 3px;
+            height: 24px;
+            border-radius: 2px;
+            flex-shrink: 0
+        }
+
+        .album-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            letter-spacing: .08em;
+            color: var(--white)
+        }
+
+        .album-sub {
+            font-size: 12px;
+            color: var(--gray);
+            letter-spacing: .04em;
+            margin-top: 1px
+        }
+
+        .album-link {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--gray);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 3px 9px;
+            transition: all .2s;
+            flex-shrink: 0
+        }
+
+        .album-link:hover {
+            color: var(--gold2);
+            border-color: rgba(201, 147, 10, .3)
+        }
+
+        /* ── SONG GRID ── */
+        .song-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px
+        }
+
+        /* ── SONG CARD ── */
+        .song-card {
+            background: var(--s2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all .25s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .song-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--glow);
+            opacity: 0;
+            transition: opacity .25s
+        }
+
+        .song-card:hover {
+            border-color: rgba(201, 147, 10, .35);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .4)
+        }
+
+        .song-card:hover::before {
+            opacity: 1
+        }
+
+        .song-card.no-lyrics {
+            opacity: .75
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px
+        }
+
+        .card-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--gray);
+            flex-shrink: 0;
+            margin-top: 2px;
+            width: 20px
+        }
+
+        .card-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .card-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 19px;
+            letter-spacing: .06em;
+            line-height: 1.1;
+            color: var(--white)
+        }
+
+        .card-credits {
+            font-size: 11px;
+            color: var(--gray2);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .card-dur {
+            font-size: 11px;
+            color: var(--gray);
+            flex-shrink: 0;
+            font-family: 'IBM Plex Mono', monospace
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            align-items: center
+        }
+
+        .stag {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: .06em;
+            padding: 2px 7px;
+            border-radius: 12px;
+            white-space: nowrap;
+            text-transform: uppercase
+        }
+
+        .stag-live {
+            background: rgba(34, 197, 94, .15);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, .25)
+        }
+
+        .stag-approved {
+            background: rgba(96, 165, 250, .15);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, .25)
+        }
+
+        .stag-letra {
+            background: rgba(201, 147, 10, .15);
+            color: var(--gold2);
+            border: 1px solid rgba(201, 147, 10, .25)
+        }
+
+        .stag-inst {
+            background: rgba(107, 114, 128, .1);
+            color: #9ca3af;
+            border: 1px solid rgba(107, 114, 128, .2)
+        }
+
+        .stag-melodia {
+            background: rgba(245, 158, 11, .12);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, .2)
+        }
+
+        .stag-analise {
+            background: rgba(245, 158, 11, .1);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, .2)
+        }
+
+        .stag-revisao {
+            background: rgba(251, 146, 60, .12);
+            color: #fb923c;
+            border: 1px solid rgba(251, 146, 60, .2)
+        }
+
+        .stag-dev {
+            background: rgba(167, 139, 250, .1);
+            color: #a78bfa;
+            border: 1px solid rgba(167, 139, 250, .2)
+        }
+
+        .card-arrow {
+            position: absolute;
+            bottom: 12px;
+            right: 14px;
+            font-size: 14px;
+            color: var(--gold);
+            opacity: 0;
+            transition: opacity .2s, transform .2s
+        }
+
+        .song-card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(3px)
+        }
+
+        /* ── MODAL ── */
+        #modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .75);
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+            backdrop-filter: blur(4px)
+        }
+
+        #modal-overlay.open {
+            opacity: 1;
+            pointer-events: all
+        }
+
+        #modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: min(600px, 100vw);
+            background: var(--s1);
+            border-left: 1px solid var(--border);
+            z-index: 201;
+            transform: translateX(100%);
+            transition: transform .35s cubic-bezier(.16, 1, .3, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        #modal.open {
+            transform: translateX(0)
+        }
+
+        .modal-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            background: var(--s1);
+            position: sticky;
+            top: 0;
+            z-index: 10
+        }
+
+        .modal-header-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .modal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(28px, 6vw, 40px);
+            letter-spacing: .06em;
+            line-height: 1;
+            color: var(--gold2);
+            text-shadow: 0 0 30px rgba(201, 147, 10, .3)
+        }
+
+        .modal-album-badge {
+            font-size: 11px;
+            color: var(--gray2);
+            background: var(--s3);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 3px 9px;
+            white-space: nowrap;
+            margin-top: 4px;
+            display: inline-block
+        }
+
+        .modal-credits {
+            font-size: 13px;
+            color: var(--gray2);
+            margin-top: 4px;
+            letter-spacing: .02em
+        }
+
+        .modal-close {
+            background: var(--s3);
+            border: 1px solid var(--border);
+            color: var(--gray2);
+            border-radius: 7px;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: all .2s
+        }
+
+        .modal-close:hover {
+            color: var(--white);
+            border-color: var(--gray2)
+        }
+
+        .modal-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap
+        }
+
+        .modal-suno {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(201, 147, 10, .12);
+            border: 1px solid rgba(201, 147, 10, .3);
+            color: var(--gold2);
+            text-decoration: none;
+            border-radius: 7px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .05em;
+            transition: all .2s;
+            margin-left: auto
+        }
+
+        .modal-suno:hover {
+            background: rgba(201, 147, 10, .22);
+            box-shadow: 0 0 20px rgba(201, 147, 10, .2)
+        }
+
+        .modal-suno svg {
+            width: 14px;
+            height: 14px
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            -ms-overflow-style: none;
+            scrollbar-width: thin;
+            scrollbar-color: var(--s3) transparent
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: var(--s3);
+            border-radius: 2px
+        }
+
+        /* ── LYRICS ── */
+        .lyrics-section {
+            margin-bottom: 24px
+        }
+
+        .lyr-header {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 15px;
+            letter-spacing: .12em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(201, 147, 10, .15)
+        }
+
+        .lyr-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .lyr-line {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--white)
+        }
+
+        .lyr-line.italic {
+            color: var(--gray2);
+            font-style: italic
+        }
+
+        .lyr-line.note {
+            color: var(--gray);
+            font-style: italic;
+            font-size: 11px
+        }
+
+        .lyr-line.spacer {
+            height: 8px
+        }
+
+        .no-lyrics-msg {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray2)
+        }
+
+        .no-lyrics-msg .icon {
+            font-size: 32px;
+            margin-bottom: 12px
+        }
+
+        .no-lyrics-msg p {
+            font-size: 14px;
+            line-height: 1.6
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+            font-size: 14px
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 6px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--s3);
+            border-radius: 3px
+        }
+
+        @media(max-width:640px) {
+            .song-grid {
+                grid-template-columns: 1fr
+            }
+
+            #modal {
+                width: 100vw;
+                top: auto;
+                height: 90vh;
+                border-left: none;
+                border-top: 1px solid var(--border);
+                border-radius: 16px 16px 0 0;
+                transform: translateY(100%)
+            }
+
+            #modal.open {
+                transform: translateY(0)
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">ASYLUM INMATES</div>
+        <div class="tagline">Songbook Oficial — Autorais</div>
+        <div class="counts">
+            <div class="count-pill"><span id="c-total">34</span>músicas</div>
+            <div class="count-pill"><span id="c-letra">23</span>com letra</div>
+            <div class="count-pill"><span id="c-live">2</span>ao vivo</div>
+            <div class="count-pill"><span id="c-albums">8</span>álbuns</div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="filter-tabs" id="filter-tabs"></div>
+    </nav>
+
+    <div class="search-wrap">
+        <input type="text" id="search" placeholder="Buscar música..." autocomplete="off">
+    </div>
+
+    <main id="catalog"></main>
+
+    <div id="modal-overlay" onclick="closeModal()"></div>
+    <div id="modal">
+        <div class="modal-header">
+            <div class="modal-header-top">
+                <div>
+                    <div class="modal-title" id="m-title"></div>
+                    <span class="modal-album-badge" id="m-album"></span>
+                </div>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-credits" id="m-credits"></div>
+            <div class="modal-meta">
+                <div id="m-tags"></div>
+                <a id="m-suno" href="#" target="_blank" class="modal-suno">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3a9 9 0 100 18A9 9 0 0012 3zm0 2a7 7 0 110 14A7 7 0 0112 5zm-1 4v6l5-3-5-3z" />
+                    </svg>
+                    Ouvir no Suno
+                </a>
+            </div>
+        </div>
+        <div class="modal-body" id="m-lyrics"></div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════
+        // ALBUMS
+        // ═══════════════════════════════════════════════════
+        const ALBUMS = [
+            { id: 'all', name: 'Todas', color: '#c9930a', playlist: null },
+            { id: 'live', name: 'Da Banda — Ao Vivo', color: '#22c55e', playlist: 'https://suno.com/playlist/d0b8349e-f275-4cc9-a19a-5b30eee96f9c' },
+            { id: 'sfn', name: 'Songs from Nowhere', color: '#60a5fa', playlist: 'https://suno.com/song/1c055dd3-5747-4316-8026-4ec52f1f1eb9' },
+            { id: 'ds', name: 'Dual Side EP', color: '#a78bfa', playlist: 'https://suno.com/song/061e829f-b677-42c7-af02-524620d1534b' },
+            { id: 'apo', name: 'Post-Apocalyptical Crysis', color: '#f87171', playlist: 'https://suno.com/playlist/a54aa117-108d-4a58-9de2-aad83ae5d96a' },
+            { id: 'dev', name: 'Project Deviatte', color: '#fbbf24', playlist: 'https://suno.com/playlist/c3cbed2c-e1d7-41e5-8959-0490b520ab3a' },
+            { id: 'gj', name: 'Game Journey EP', color: '#2dd4bf', playlist: 'https://suno.com/playlist/47ea4a8f-861a-4475-bc1d-087c6462423b' },
+            { id: 'jon', name: "JonMonkey's Mind", color: '#9ca3af', playlist: 'https://suno.com/playlist/39536d4f-52ba-4c27-a16b-0c8ca57ea56f' },
+            { id: 'pat', name: 'Patapim Sessions', color: '#f472b6', playlist: 'https://suno.com/playlist/b5095ed1-77d3-45d0-962d-d4810f64274b' },
+        ];
+
+        // Lyric format:  ##HEADER | ~italic | !note | (blank)=spacer | else=normal
+        // ═══════════════════════════════════════════════════
+        // SONGS
+        // ═══════════════════════════════════════════════════
+        const SONGS = [
+
+            // ── DA BANDA ──────────────────────────────────────
+            {
+                id: 'free-me', num: '01', album: 'live', title: 'Free Me',
+                credits: 'Asylum | Lyrics: Blue; IV', status: 'live', dur: '4:42',
+                suno: 'https://suno.com/song/a6bb3123-072a-48e0-8776-81303dfb04ae',
+                lyrics: `##RAP PT-BR
+Admitir toda hipocrisia,
+É tentar correr sem perna
+é brigar consigo mesmo
+~tentando evitar sua briga interna  ⏩
+
+internamente se exala caos  ⏩
+externamente se emana paz  ⏩
+é empurrar a porta pra frente
+~enquanto sua mente te puxa pra trás  ⏩
+
+##REFRÃO
+So free me from who I am
+free me, because I can't
+So free me from who I am
+don't leave myself so fast
+Cause I need to be approved
+
+##RAP EN-US
+So do not care about the world
+do not care about your work
+~they'll always find a way to disappoint you  ⏩
+
+don't give more than you have
+don't get stuck inside your head
+~don't give a damn about what cannot help you  ⏩
+
+##REFRÃO
+So free me from who I am
+free me, because I can't
+!(Screamo de fundo) 🗣️
+So free me from who I am
+don't leave myself so fast
+!(Screamo de fundo) 🗣️
+Cause I need to be approved
+
+##PONTE
+We're screaming for approval
+seeking for a meaning
+waiting to be seen.
+
+Waiting for the right time
+Looking for some meaning
+waiting to be seen
+waiting to be free
+
+##ALT. REFRÃO FINAL  🎙️
+So free me from who I am  🎙️
+So free me from who I am  🎙️
+So free me from who I am  🎙️
+don't leave myself so fast  🎙️
+Cause I need to be approved`},
+
+            {
+                id: 'save-me', num: '02', album: 'live', title: 'Save Me (Ambulance)',
+                credits: 'Asylum | Lyrics: Lucian; Blue; IV', status: 'live', dur: '5:19',
+                suno: 'https://suno.com/song/ed0d7218-9a7e-4c59-9cf8-54d38e98580e',
+                lyrics: `##INTRO
+!Ambulance simulation on guitar
+
+I'm lost in life
+I've lost my head
+I feel so strange
+I feel so scared
+
+My paradise is now far away
+My disappearance is on its way
+
+##RIFF  [2x]
+My roof is turning,
+losing control
+I'm falling out of bed,
+out of my soul
+
+I am not sure
+If all this is real
+I don't wanna lose—
+the last thing I feel
+
+##PRÉ-REFRÃO
+They're coming
+Doppler effect
+Wrong beats in my heart
+
+They're coming
+They will take me
+I'm falling apart
+
+##REFRÃO
+Save me, save me
+Save me from myself
+
+Help me, help me
+I feel so scared
+
+##RIFF  (PRÉ-SOLO) — SOLO
+
+##REFRÃO
+Save me, save me
+Save me from myself
+
+Help me, help me
+I feel so scared
+
+Save me, save me
+Save me from myself
+
+Help me, help me
+I don't wanna die`},
+
+            // ── SONGS FROM NOWHERE ────────────────────────────
+            {
+                id: 'let-me-be', num: '03', album: 'sfn', title: 'Let Me Be',
+                credits: 'Asylum | Lyrics: IVBlue', status: 'approved', dur: '3:44',
+                suno: 'https://suno.com/song/8c3bde88-8726-4312-86fb-c623aa261b40',
+                lyrics: `##VERSE 1
+It's strange to think
+That most of us will live and grow
+Multiply and sink
+Without ever getting to know
+It's strange to believe
+There's meaning in everything we do
+When all we achieve
+Is passing by without a clue
+
+##VERSE 2
+It's strange to feel
+Surrounded but still insecure
+Nothing seems real
+No place feels safe, nothing's for sure
+It's strange to live
+Feeling empty and incomplete
+With nothing to give
+Labeled immature when we retreat
+
+##PRE-CHORUS
+The doubts will always come around
+The meanings will never be found
+The secrets will stay underground
+
+##CHORUS
+Let me be
+Live the way I think it should be
+There might be no meaning
+But there's nothing left to lose, you see
+Set me free
+I choose what I do, I choose me
+Not the right direction
+But I choose what I choose to be
+
+##VERSE 3 & 4
+It's strange not to feel
+Fighting for what you really need
+Some things are real
+But nobody gives the warning you should heed
+
+It's strange not to chase
+Drowning while anchored in your mind
+Stuck in one place
+Leaving our uncertainties behind
+It's strange to give up
+Before we even start the race
+We've had enough
+Quitting right there, losing our pace
+
+##PRE-CHORUS → CHORUS  (repete)
+
+##BRIDGE
+It's sad to dream
+Of something we won't ever reach
+Fighting for a scheme
+A future we won't live to teach
+It's sad to dream
+Of a flight we'll never take
+Spread our wings, it seems
+Just to find out we're too late
+
+##BREAKDOWN
+The doubts will always come
+The meaning will be gone
+The secrets we'll never tell
+
+##FINAL CHORUS
+Let me be
+Live the way I think it should be
+There might be no meaning
+But there's nothing left to lose, you see
+Set me free
+I choose what I do, I choose me
+Not the right direction
+But I choose what I choose to be
+~(repeat)
+Let me be... Set me free...
+I choose what I choose to be`},
+
+            {
+                id: 'about-us', num: '04', album: 'sfn', title: 'About Us',
+                credits: 'Asylum | Lyrics: IVBlue', status: 'approved', dur: '7:20',
+                suno: 'https://suno.com/song/5fff9d11-6741-4a45-9548-6c46187bb303',
+                lyrics: `##VERSE 1
+No matter how uncertain things appear
+Or even when nothing's crystal clear
+I'll always return to hold you near
+
+No matter how far I seem to roam
+Or if I've vanished from your home
+I'll always come back, you're not alone
+
+##PRE-CHORUS
+Not even time or space between
+Will separate or intervene
+With what we have, with what we've seen
+
+Not even days or miles away
+Will drift us off or make us sway
+It's not about me, it's about us, I'd say
+
+##CHORUS
+If it's your darkest day to face
+Or your emptiest night's embrace
+I'll make it better, I'll give you grace
+
+If it's your darkest moment's call
+Or your coldest night of all
+I'll be there, I'll come and save your day
+
+'Cause it's not about me, it's about us after all
+
+##VERSE 2
+No matter how wrong things may turn
+Or if there's no one to show concern
+I'll give you my arm, for you I'll yearn
+
+I don't care if all seems like a mess
+Or if you're feeling hopeless
+I'll give you my embrace, nonetheless
+
+##PRE-CHORUS → CHORUS  (repete)
+
+##BRIDGE / BREAKDOWN
+It's not about me
+It's about us
+It's not about me
+It's about us`},
+
+            {
+                id: 'counting-down', num: '05', album: 'sfn', title: 'Counting Down to Zero',
+                credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '2:57',
+                suno: 'https://suno.com/song/afe14099-5e7f-44bf-9002-044afea84b9c',
+                lyrics: `##PART I
+Why are some days so hard to bear?
+Why are some days just endless night?
+And why my nights feel cold and bare.
+Like arctic winter, no warmth in sight?
+
+##PART II
+Why does time have to slip away?
+Why do we learn when loss is near?
+How many meetings do we have today?
+Do we still have time to make things clear?
+
+##PONTE 1
+And if you've got two years of life.
+and If we meet just twice throughout year.
+Then we just have couple of days.
+and I'm counting down my fear.
+
+##RAP / SCREAMO
+One, day to deny what's real.
+Two, day to rage and fight.
+Three, day to make a deal.
+Four, day to lose the light.
+
+##PRÉ-REFRÃO
+Zero!
+In the end we must accept.
+That time will always flow.
+Life's equation never slept.
+and I am Counting down to zero.
+
+##REFRÃO
+Cause I'm Counting down, counting down…
+Your time is running out.
+Counting down… counting down…
+The world keeps spinning 'round.
+
+Counting down, Counting down.
+I'm Counting down to zero.
+Counting down, Counting down.
+I'm Counting down to zero
+
+##PONTE 2
+Till your counter hits the ground.
+While the world keeps spinning 'round.
+Counting down to...
+
+##RAP → PRÉ-REFRÃO → REFRÃO  (repete)`},
+
+            {
+                id: 'not-going-back', num: '06', album: 'sfn', title: 'Not Going Back',
+                credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '3:57',
+                suno: 'https://suno.com/song/2ca46aee-39fa-4f81-ae29-d410caf039cc',
+                lyrics: `##VERSE 1
+It was like a punch straight to my face.
+Your words just knocked me out of place.
+I couldn't see the light of day.
+But now I don't wait for dawn anyway.
+
+The light has lost part of its glow.
+Dreams turned to nightmares, now I know.
+And waking up don't make no sense.
+When I don't want dawn's consequence.
+
+The nights became so fast and quiet.
+But my mind's slow and full of riot.
+My thoughts that led me to success.
+Now tell me how to end this mess.
+
+The problem is if I went back in time.
+I'd do it all again, every crime.
+'Cause I feel no guilt or regret.
+But tell me how to end this yet.
+
+##REFRÃO
+I don't want it all to end.
+Though it never should've started.
+But I only felt life's beat.
+When I was by your side.
+
+##VERSE 2
+I don't know what's the right thing to do.
+Don't know how much of me is true.
+And I think there's no way to know.
+Don't know if I can wait for dawn to show.
+
+I don't know if I should keep trying.
+Don't know if I should keep on crying.
+Don't know if it's real or I'm dreaming.
+Don't know if there'll be dawn's gleaming.
+
+I crossed paths I never should have crossed.
+But I'd regret what I would have lost.
+If I hadn't fought for what I dreamed.
+Now I have to end what once seemed.
+
+I never wanted no one to get hurt.
+Never wanted you to feel alert.
+Never wanted nothing to be done.
+But now I have to end what we begun.
+
+##PONTE
+I don't want to leave you behind.
+I don't want to give up the fight.
+I don't want to let you go.
+
+##REFRÃO
+I don't want it all to end.
+Though it never should've started.
+'Cause I only felt alive.
+When I was by your side.
+
+No going back... no going back...
+Once you've tasted life,
+you can't return to the dead...`},
+
+            {
+                id: 'monster-inside', num: '07', album: 'sfn', title: 'Monster Inside',
+                credits: 'Asylum | Lyrics: Blue; IV', status: 'letra', dur: '3:39',
+                suno: 'https://suno.com/song/124c353e-8f1b-4a50-954f-77fad1766807',
+                lyrics: `##VERSE 1
+A fragile thread, where my heart resides,
+Each whispered promise, my soul confides.
+But shadows lengthen, and doubts take hold,
+A sudden silence, a story untold.
+They slip like water, through fingers so weak,
+Leaving me stranded, unable to speak.
+
+##CHORUS
+Never meant to feel, this tightness in my chest,
+A lump in my throat, a fear put to the test.
+Anxiety creeps in, makes me stumble and fall,
+I know I'm not okay, I need to stand tall,
+Find a way to soothe, this endless pain,
+And... find some peace, if I ever can.
+
+##VERSE 2
+A restless feeling, that won't subside,
+A dark shadow, where fears reside.
+Insecurity surrounds me, in a cruel embrace,
+Making me doubt, love's gentle grace.
+
+##CHORUS  (repete)
+
+##BRIDGE
+But deep down I fear, this fight's in vain,
+The monster inside, will always remain.
+A hollow echo, where hope used to be,
+Just emptiness, staring back at me.
+
+##CHORUS  (repete)
+
+##OUTRO
+Again and again, lost in the haze,
+Just empty echoes, in these lonely days.`},
+
+            {
+                id: 'sanatorium', num: '08', album: 'sfn', title: 'Sanatorium',
+                credits: 'Asylum | Lyrics: Blue; IV', status: 'letra', dur: '3:18',
+                suno: 'https://suno.com/song/b6205efc-c393-4590-8cae-ba6873d6aacb',
+                lyrics: `##PARTE 1
+I'm stuck in this shit
+~and I can't get out  (i can't get out)
+no matter what I can do
+~even if I scream out loud  (scream out loud)
+
+##PARTE 2
+since the first time, I step in this place
+my credibility's gone,
+I couldn't believe,
+but I'm truly on my own
+
+##PONTE
+I'm here against my will
+and people think I'm out of my mind
+but I'm not out of my mind
+I'm perfectly fine
+
+##REFRÃO
+writings on the wall
+~(seems like they're calling my name)
+something I've never seen
+An slowly spelling... D E A D
+~(bring them to me)
+
+I can't feel no more, but they all can see
+I'm not out of my mind
+~(No one can hear you scream)
+Maybe I'm out of my mind
+~(NO ONE CAN HEAR YOU SCREAAAAAAM)
+
+##QUEBRA RAP PESADOWN
+it feels like a nightmare
+it's like I'm medicated
+this feelings I hate
+I'm starting losing faith
+
+##QUEBRA INSTRUMENTAL — VIOLA
+!Dueto guitarra / viola
+!Menção a uma música clássica famosa
+!Retorno à música
+
+##PONTE  (repete) → REFRÃO  (repete)`},
+
+            {
+                id: 'sick-mantra', num: '09', album: 'sfn', title: 'Sick Mantra',
+                credits: 'Asylum | Lyrics: IV  (A.K.A. Rhynotherapy)', status: 'letra', dur: '3:04',
+                suno: 'https://suno.com/song/4d0000f0-cadf-4f04-8b14-0a4827cef39a',
+                lyrics: `##RAP — SPEED FLOW  (IV)
+A mente tá cheia do que o corpo tá vazio
+Mente sã, corpo são? Que mantra mais doentio
+Você acerta, eles aplaudem, você erra, leva tiro
+A pressão pra ser melhor não vai pagar o seu asilo
+
+##VERSE  (PT)
+Você me diz pra ficar zen
+~(Ficar zen)
+Que tudo aqui vai ficar bem
+~(ficar bem)
+Que o que eu faço é sempre além
+~(sempre além)
+Que todo mundo erra também
+~(sempre além)
+
+##VERSE  (Blue — EN)
+I've said it once, they told me twice
+I'm not just everyone — I won't suffice
+I want it more, I want it bigger
+A higher peak, a sharper trigger
+
+##CHORUS
+Sick mantra in my head
+Sound mind, soul half-dead
+Lift me up, then watch me bleed
+This silence's all I need
+
+##RAP → VERSE  (repete)
+
+##VERSE
+When my mind grows heavy as the lead
+And my body shakes from what's unsaid
+The darkest days drag me below
+While the night's the only truth I know
+
+##BRIDGE
+When the world lifts you up so high
+And your friends all sing your name
+If you're empty deep inside
+~Forget the game  (Screamo)
+
+##CHORUS  (repete)`},
+
+            {
+                id: 'cant-wait', num: '10', album: 'sfn', title: "Can't Wait for the Sun",
+                credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '2:39',
+                suno: 'https://suno.com/playlist/6b7a382a-1932-401d-b431-ab41694d56ba',
+                lyrics: `##VERSE 1
+I'm tired of sitting down just waiting for a sign
+Tired of depending on the world to make it right
+I won't wait for the sun to rise and break the night
+I'd rather do it wrong than never even try
+
+##PRE-CHORUS
+So I rise, and I run
+'Cause done is better than none
+
+##CHORUS
+Can't wait for the sun goes down
+~(I won't wait)
+Can't wait for the sun
+~(just makin' it right)
+I don't need an alibi
+~(No alibi)
+I'm just makin' it right
+~(I'm just makin' it right)
+
+##VERSE 2
+I'm tired of all the voices telling me to hold
+Tired of every promise that they never sold
+I won't wait for permission, I'll just break the mold
+Better burn imperfect than to die in gold
+
+##PRE-CHORUS → CHORUS  (repete)`},
+
+            {
+                id: 'aleosong', num: '11', album: 'sfn', title: 'Aleosong',
+                credits: 'Asylum', status: 'inst', dur: '5:18',
+                suno: 'https://suno.com/song/d1c1ccaf-29a2-474b-908f-c98d6d8c614c', lyrics: null
+            },
+
+            {
+                id: 'terror', num: '12', album: 'sfn', title: 'Terror Electric Night',
+                credits: 'Asylum', status: 'inst', dur: '3:04',
+                suno: 'https://suno.com/song/fe7cc5aa-c7ba-4983-a794-1fe4fe290246', lyrics: null
+            },
+
+            // ── DUAL SIDE EP ──────────────────────────────────
+            {
+                id: 'regrets', num: '13', album: 'ds', title: 'Regrets',
+                credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '3:42',
+                suno: 'https://suno.com/song/9591c529-db2f-470f-a516-53bb8f5cb404',
+                lyrics: `##REFRÃO
+No matter the good you've done throughout your life
+The bad will always cut deeper than the knife
+When a star burns itself just to survive
+No faith can save you — nothing stays alive
+
+##RAP
+Nobody can save you from your biggest mistake
+Nobody can help when your whole world starts to break
+Nobody can reach what no longer remains
+Nobody can pull you back out of these chains
+
+~Screamo de fundo: (No faith can save you — nothing stays alive)
+
+##VERSO 1
+Wrapped in a nebula of ego and pride
+Your coldness and selfishness push the world aside
+Not even the greatest technology can find
+A way to reach you — you left the world behind
+
+##REFRÃO  (repete)
+
+##RAP
+If you could go back, what would you change?
+Who could prepare your mind for that exchange?
+Would you have done it differently this time?
+Or simply given up before the climb?
+
+##VERSO 2
+Wrapped in a nebula of ego and pride
+Your coldness and selfishness push the world aside
+Not even the greatest technology can find
+A way to reach you — you left the world behind
+
+~Screamo no fundo: (No faith can save you — nothing stays alive)
+
+##PONTE FINAL
+There's no way to undo
+~(what's already been made)
+To change the future now
+~(just a masquerade)
+When you're not worthy of it,
+~(every try is in vain)
+Just a deceptive attempt
+~(to escape from the pain)
+
+##REFRÃO
+No matter the good you've done throughout your life
+The bad will always cut deeper than the knife
+When a star burns itself just to survive
+No faith can save you — nothing stays alive`},
+
+            {
+                id: 'future-present', num: '14', album: 'ds', title: 'Future Present',
+                credits: 'Asylum | Lyrics: IVBlue', status: 'letra', dur: '3:49',
+                suno: 'https://suno.com/song/c8b3fd26-a822-4d9a-91df-f2bbbb90623e',
+                lyrics: `##VERSE 1
+I wish
+That our future
+Won't be so hollow
+Won't be just small talk
+Won't be just a dream to follow
+
+##VERSE 2
+I wish
+That our future
+Won't stay in the past
+Won't be stuck or stalled
+Will be more than a dream at last
+
+##PRE-CHORUS
+Let it be light
+Let it be soon
+Let it be right
+
+Let us give in
+Let it last long
+Let it be right
+
+##CHORUS
+And may the universe move us along
+To make it all come true, make us strong
+So our future we keep talking of
+Becomes a present, wrapped in love
+
+##VERSE 3
+I wish
+It's at the beach
+Rain on the road we're taking
+But the sun will shine
+With every sunset we're making
+
+##VERSE 4
+I wish
+It's on a boat
+Or even on a lake
+Just let it be real
+Let it be you, for heaven's sake
+
+##PRE-CHORUS → CHORUS  (repete)
+
+##BRIDGE
+I know it might not be
+It's scary it won't come to be
+But as long as I can move
+I'm heading your way
+
+'Cause those who want will find a way
+It might not end up perfect, okay
+But as long as I can move
+I'm heading your way
+
+##FINAL CHORUS
+And may the universe move us along
+To make it all come true, make us strong
+So our future we keep talking of
+
+Becomes a present
+~(a present)
+Becomes a present
+~(here and now)
+Becomes a present, wrapped in love`},
+
+            {
+                id: 'hollow-present', num: '15', album: 'ds', title: 'Hollow Present',
+                credits: 'Asylum | Lyrics: IV  (par de Future Present)', status: 'letra', dur: '2:40',
+                suno: 'https://suno.com/playlist/f668fdca-b66a-454b-a342-772af63a1813',
+                lyrics: `##VERSE 1
+I heard it on your screen
+The future you pursue
+Not as real as it might seem
+And deep down you know that too
+
+##VERSE 2
+You lost me
+Long before
+I ever felt it too
+There was never something more
+
+##PONTE
+The thought of us
+Consuming you
+Pushing you to the edge
+
+##REFRÃO
+You still smile for me
+While I'm tearing out your heart
+You still need me
+While I tear it all apart
+Will you hold on
+To a love that's falling apart?
+Is it haunting you
+That I never played my part?
+
+As your wishes hit the glass
+Every second wasted slowly passes
+Our future's just a fucking mess
+A hollow present — nothing more, nothing less
+
+##PONTE  (repete) → REFRÃO  (2x)
+
+##CONTRAPONTO  (espelho de Unnatural We)
+!— voz I —
+I could smile for you
+I will let you rip my heart
+I could please you
+You can tear it apart
+Will you hold me
+And make me your art?
+Are you haunting me?
+~Can you play the part?  (2x)`},
+
+            {
+                id: 'no-halfway', num: '16', album: 'ds', title: 'No Halfway (Sasuke)',
+                credits: 'Asylum | Lyrics: IVBlue', status: 'letra', dur: '4:39',
+                suno: 'https://suno.com/song/eababd86-f8c8-4f17-a193-0e3fb1c573b3',
+                lyrics: `##VERSE 1
+We only get one single shot
+Sometimes we're caught in the dark
+Sometimes there's time to prepare
+Sometimes we're hit by the shock
+
+##VERSE 2
+Living intensely might seem reckless to some
+But regretting not living at all
+Is a price too high, too painful to pay
+Is a pain I refuse to become
+
+##PRE-CHORUS
+I wanna hold you like it's the last time
+I wanna feel you like it's the first
+No matter how much time we have left
+I want the time we have left to matter
+
+##CHORUS
+I don't wanna live halfway
+I don't wanna have you halfway
+I don't wanna leave halfway
+I'm not yours just halfway
+
+##VERSE 3 & 4
+Living fearless might sound selfish and cold
+But not living 'cause you fear what they'll say
+Is a price too high, too painful to pay
+Is a prison I won't let take hold
+
+If our last day is freezing
+If our last night is dark
+I wanna feel yours one more time
+I want you craving me forever like I crave you
+
+##RAP / SPOKEN VERSE
+If our last touch feels lukewarm
+If our last kiss has no spark
+I wanna feel one more time the fire we had before
+I wanna act like a teenager in public, I don't care anymore
+
+##PRE-CHORUS → CHORUS  (repete)
+
+##BRIDGE / BREAKDOWN
+No halfway... No halfway...
+I'm all in, no halfway
+No halfway... No halfway...
+We're all in, no halfway
+
+##FINAL CHORUS
+I don't wanna live halfway
+~(I don't wanna live)
+I don't wanna have you halfway
+~(I don't wanna have you)
+I don't wanna leave halfway
+~(I don't wanna leave)
+I'm not yours just halfway
+~(I'm all yours)
+No halfway!`},
+
+            {
+                id: 'slow-down', num: '17', album: 'ds', title: 'Slow Down (Naruto)',
+                credits: 'Asylum | Lyrics: IV  (par de No Halfway)', status: 'letra', dur: '4:02',
+                suno: 'https://suno.com/song/e75785e8-9901-4ffe-9325-9e4e6d48f98a',
+                lyrics: `##VERSE 1
+I lived a thousand lives in a single shot
+I ran with the fire, I had no direction
+I never stopped to feel what was around me
+I thought that stopping meant falling behind
+
+##VERSE 2
+Living intensely felt like it was everything
+But carrying that weight will break you in half
+I burned everything down while I was shining
+And the price was too high — I had to pay it all
+
+##PRE-CHORUS
+I wanna hold you without letting go
+I wanna feel you without having to leave
+No matter how much time we still have left
+I want the time we have left to be ours
+
+##CHORUS
+I don't wanna run anymore
+I don't wanna have you in fast-forward
+I don't wanna keep running away
+I'm yours — completely, slowly, all the way
+
+##VERSE 3
+Living fearless felt like it was strength
+But running from yourself is cowardice
+I passed right through you without seeing you
+At the speed that was tearing me apart inside
+
+##VERSE 4
+If our next day together is silence
+If our next night together is still
+I wanna feel the weight of you in my arms
+I want you to want me here — forever, like I do
+
+##RAP / SPOKEN VERSE
+If the next time we touch there's no urgency
+If the next time we kiss there's no rush
+I wanna feel again what it means to be present
+Without needing the fire to make it feel real
+
+I wanna stop in the middle of the street just to look at you
+Going nowhere at all — and have that be enough
+
+##PRE-CHORUS → CHORUS  (repete)
+
+##BRIDGE / BREAKDOWN
+Slow down... slow down...
+I'm all in, slow down
+Slow down... slow down...
+We're all in, slow down
+
+##FINAL CHORUS
+I don't wanna run anymore
+~(I don't wanna run)
+I don't wanna have you in fast-forward
+~(not like this anymore)
+I don't wanna keep running away
+~(I don't wanna run)
+I'm yours — completely, slowly, all the way
+~(I'm all yours)
+Slow down!`},
+
+            {
+                id: 'platinium', num: '18', album: 'ds', title: 'Platinium',
+                credits: 'Asylum', status: 'melodia', dur: '3:44',
+                suno: 'https://suno.com/song/a194bfe4-96fb-421f-a33b-959fbd9e1e3e', lyrics: null
+            },
+
+            {
+                id: 'obsessivo-a', num: '19', album: 'ds', title: 'Obsessivo Cleptomaniaco — A',
+                credits: 'Asylum', status: 'inst', dur: '2:12',
+                suno: 'https://suno.com/song/be1ed6e4-2ddd-4d4f-91a0-b6ad337dad00', lyrics: null
+            },
+
+            {
+                id: 'obsessivo-b', num: '20', album: 'ds', title: 'Obsessivo Cleptomaniaco — B',
+                credits: 'Asylum', status: 'inst', dur: '3:10',
+                suno: 'https://suno.com/song/00b8d671-bc31-4b4e-8ff9-c195de773f13', lyrics: null
+            },
+
+            {
+                id: 'suicide', num: '21', album: 'ds', title: 'Suicide',
+                credits: 'Asylum', status: 'dev', dur: '3:09',
+                suno: 'https://suno.com/song/ff96a946-9e0d-40ab-adc5-11e864f7d97b', lyrics: null
+            },
+
+            // ── POST-APOCALYPTICAL CRYSIS ──────────────────────
+            {
+                id: 'apocalliptical', num: '22', album: 'apo', title: 'Apocalliptical (Drowned)',
+                credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '3:11',
+                suno: 'https://suno.com/song/8044f821-555a-4223-8c26-19be7576be21',
+                lyrics: `!(1:10)
+Help me erase my mind
+and suffocate my thoughts
+I still drown in ocean
+~I still drown in ocean
+
+!(1:20)
+Without an event horizon
+My vision is so limited, I see
+and my weapons are my regrets
+My regrets
+
+!(1:39)
+Your thoughts are so dense, that prevent you to flying
+~(Ohh I'm Trapped)
+they prevent you to fly and you from thinking...
+~(Ohhh I'm Trapped)
+
+!(1:59)
+Imprisoned to the ground
+Chained to the world
+~(to the world)
+Gravity, grave curse.
+Chained to the world
+~Chained to the world
+
+!(3:02)
+Blind, deaf and mud, unable to express yourself.
+Deep existential void, your thoughts prevent you to fly
+!(3:20)
+~They still prevents your fly
+
+!(3:42)
+Help me erase my mind
+and suffocate my thoughts
+Cause I still drowned into this ocean
+~Cause I still drowned into this ocean
+
+!(4:22)
+Your thoughts are so dense,
+that prevent you to flying
+~(Ohh I'm Trapped)
+they still prevent you to fly`},
+
+            {
+                id: 'burning-flames', num: '23', album: 'apo', title: 'Burning Flames',
+                credits: 'Asylum | Lyrics: Diego Silva; Trad./Adapt.: IV', status: 'letra', dur: '5:00',
+                suno: 'https://suno.com/song/1d83e411-372f-4dea-87b6-175be268c110',
+                lyrics: `##VERSE 1
+I'm burning in the flames of my own disgrace
+Stepping down into the grave that I dug myself
+How it hurts, how this fire burns my face
+The poison that I made now burns like hell
+
+##VERSE 2
+Here alone with all my thoughts inside my head
+Feeling pain from all my flesh that's bleeding red
+Dealing with the thorns that pierce my soul
+Tell me that you love me, make me whole
+
+##CHORUS
+Will you give up on us now?
+All those empty promises we made somehow
+Thrown into the air, they disappear
+I can see it in your eyes, the end is here
+
+##VERSE 3
+I can see it in the way you look at me
+In your smile that's lost its shine, its light
+I destroyed it all, can't you see
+Standing on this cliff I built tonight
+
+##VERSE 4
+Trapped inside the labyrinth of my own mind
+Yes, I'm burning in these flames of my own disgrace
+In this grave I dug, no peace to find
+How this poison burns, time can't erase
+
+##CHORUS  (repete)
+
+##BRIDGE  (Breakdown)
+The thorns pierce through my soul
+~(Tell me that you still love me)
+I'm losing all control
+~(Tell me that you still love me)
+Standing on this precipice I made
+Lost inside this maze where hope will fade
+
+##FINAL CHORUS  — Heavy, full band
+Will you give up on us now?
+All those empty promises we made somehow
+Thrown into the air, they disappear
+I can see it in your eyes…
+
+~(Vocal builds)
+The end is here!
+The end is here!
+I'm burning in these flames of my disgrace!`},
+
+            {
+                id: 'if-i-had-a-gun', num: '24', album: 'apo', title: 'If I Had a Gun (Part I)',
+                credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '4:49',
+                suno: 'https://suno.com/song/66370a4f-eca9-429f-92dd-a7ee54fb423d',
+                lyrics: `##INTRO
+!Radio static SFX — spoken word, distorted voice
+
+~…Breaking news from Dustfall County.
+~Former Sheriff Ray Cole has been stripped of his badge and weapons
+~following a history of violent misconduct and substance abuse.
+~Authorities warn citizens to avoid contact with the former lawman,
+~described as unstable and dangerous.
+~If you see Ray Cole… do not approach.
+~We repeat — do not approach.
+
+!SFX: radio cuts hard — heavy riff enters
+
+##VERSE 1
+They took my badge, they took my name
+Said I was broken, said I was shame
+Now every face looks through me like glass
+Like I'm a ghost who never gonna last
+
+Your pity eyes burn worse than fire
+I see your fear and I see you tire
+Don't look at me with that hollow stare
+I swear to God it ain't right — it ain't fair
+
+##CHORUS
+If I had a gun, I'd settle it all
+Put an end to the rise, or watch someone fall
+If I had a gun — I'd make it right
+One way or another — end this tonight
+
+##VERSE 2
+They took my badge, they took my name
+Said I was broken, said I was shame
+Now every face looks through me like glass
+Like I'm a ghost who never gonna last
+
+I walked this town for twenty years
+I kept the wolves away — no thanks, no cheers
+Now you cross the street when you see me comin'
+The whole damn town — just run, keep runnin'
+
+##BRIDGE
+Is it me — or the bottle talking?
+Is it rage — or just a dead man walking?
+
+##GUITAR SOLO
+!Classic viola lead — dissonant, tense
+
+##CHORUS  (repete)
+
+##INSTRUMENTAL BREAKDOWN
+!Heavy, dark, western
+
+##BRIDGE  →  SPOKEN TO SCREAMED
+Is it me — or the bottle talking?
+Is it rage — or just a dead man walking?
+
+!spoken to screamed:
+If I had a gun, I'd settle it all
+Put an end to the rise, or watch someone fall
+If I had a gun — I'd make it right
+One way or another — end this tonight`},
+
+            {
+                id: 'clear-wave', num: '25', album: 'apo', title: 'Clear Wave',
+                credits: 'Asylum', status: 'inst', dur: '2:44',
+                suno: 'https://suno.com/song/1bbc31aa-8de0-419d-81e6-550a740527d9', lyrics: null
+            },
+
+            {
+                id: 'new-from-satan', num: '26', album: 'apo', title: 'New from Satan',
+                credits: 'Asylum', status: 'inst', dur: '2:50',
+                suno: 'https://suno.com/song/88995bbe-ae14-454e-9aa7-a12f02950ab1', lyrics: null
+            },
+
+            {
+                id: 'happy-aleo', num: '27', album: 'apo', title: 'Happy Aleocalipse',
+                credits: 'Asylum', status: 'inst', dur: '3:08',
+                suno: 'https://suno.com/song/8c2f1790-41fb-4fe0-a2e5-bd6da1c54253', lyrics: null
+            },
+
+            {
+                id: 'end-wave', num: '28', album: 'apo', title: 'End Wave',
+                credits: 'Asylum', status: 'inst', dur: '2:49',
+                suno: 'https://suno.com/song/4f692ec9-68d6-43cb-aafb-6bf517115049', lyrics: null
+            },
+
+            // ── PROJECT DEVIATTE ───────────────────────────────
+            {
+                id: 'gravity', num: '29', album: 'dev', title: 'Gravity',
+                credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '5:02',
+                suno: 'https://suno.com/song/adff96c5-aed2-4035-abcb-ae9900ee3b8f',
+                lyrics: `##INTRO
+!Viola
+
+##VERSE 1
+I watched you leave it all behind
+A daughter, fields of golden grain
+You carried love you couldn't find
+A goodbye swallowed by the pain
+
+I bent the stars to let you through
+I folded space to clear your way
+But every shortcut has its dues —
+Each hour you gain, she lives a year away
+
+##PRE-CHORUS
+The clock was never built for love
+It only moves, it never weeps
+But something in you rose above
+The cold equations no one keeps
+
+##CHORUS
+I am the space between you and her
+I am the silence when the light goes still
+I am the void that swallows what was —
+But cannot swallow what love always will
+
+Gravity —
+The only law that bends eternity
+Gravity —
+The only thread that holds through all we cannot see
+
+##VERSE 2
+She grew up counting knocks upon the floor
+Decoding every signal, every sign
+Each number was your voice behind a door
+Each pattern — proof you hadn't left her blind
+
+I watched the hours twist behind your eyes
+I watched you age in seconds, lost in space
+While she lived decades under foreign skies —
+Two souls apart, one love no void could erase
+
+##PRE-CHORUS → CHORUS  (repete)
+
+##BRIDGE
+!Viola + voz
+
+You fell into me not knowing what you'd find
+Dimensions stacked like pages, time suspended
+Every moment that you lived — preserved, aligned
+I gave you what no universe intended:
+
+The chance to reach her
+Without moving
+Just with what no equation ever held —
+
+~(pausa)
+
+A father's love
+
+!EXPLODE
+
+##FINAL CHORUS → OUTRO
+!Viola — espelho do intro`},
+
+            {
+                id: 'unnatural-we', num: '30', album: 'dev', title: 'Unnatural We',
+                credits: 'Asylum | Lyrics: Blue (Micka)', status: 'analise', dur: '3:06',
+                suno: 'https://suno.com/song/90077741-a4bf-4106-954c-bfdd47d321a3',
+                lyrics: `I see you on my screen
+Watch everything you do
+Not so innocent as you seem
+And you know that too
+
+You bewitched me
+The way I felt before
+But knowing you like I do
+I know there's something more
+
+##PONTE
+The thought of you
+Consuming me
+Taking me to the edge
+
+##CHORUS / BRIDGE
+I could smile for you
+I will let you rip my heart
+I could please you
+You can tear it apart
+Will you hold me
+And make me your art?
+Are you haunting me?
+Can you play the part?
+
+As my fingers touch the glass
+Every second wasted, that slowly passes
+My thoughts are so a fucking mess
+I know I'm fucking obsessed.
+
+##PONTE  (repete) → CHORUS  (2x)`},
+
+            // ── GAME JOURNEY ──────────────────────────────────
+            {
+                id: 'ghosts-we-keep', num: '31', album: 'gj', title: 'Ghosts We Keep',
+                credits: 'Asylum | Lyrics: IV', status: 'letra', dur: '5:19',
+                suno: 'https://suno.com/song/f389a7c6-7b05-4106-b0e3-ab93ee466f6b',
+                lyrics: `##INTRO
+!Instrumental — viola and clean guitar
+
+##VERSE 1
+We built our walls from broken things
+And called the ruins home
+The dead don't wait for burial
+They learn to walk among the bone
+
+##CHORUS  🎶
+~OOOOH
+They walk through walls
+~OOOOH
+They walk through sleep
+What you would not bury
+Is yours to keep
+
+##VERSE 2
+You taught your hands to hold the wound
+And not the letting go
+We inherit what was never named
+And pass it on below
+
+##CHORUS  (repete)
+
+##BREAK / BRIDGE
+!tribal drums begin
+
+Face it now or face it forward
+The ghost you feed will grow
+Face it now or face it forward
+In blood you've yet to know
+
+##BREAKDOWN / OUTRO
+!whispered vocal — fading
+
+Lay them down
+Every wound, every name
+Before the next one carries
+What you came here to bury`},
+
+            {
+                id: 'if-i-had-a-gun-2', num: '32', album: 'gj', title: 'If I Had a Gun II — One More Round',
+                credits: 'Asylum | Lyrics: IV', status: 'dev', dur: '3:06',
+                suno: 'https://suno.com/song/12a8db24-9189-41fd-925a-46637374053f',
+                lyrics: `##INTRO
+!Radio SFX — hospital — flatline
+
+~"…Ray Cole was found unresponsive at his residence this morning.
+~A single gunshot was reported. His condition is… uncertain."
+
+!flatline — silêncio — spoken Ray:
+~"I pulled the trigger. I thought that was the answer.
+~But here I am. Who's listening?"
+
+##VERSE 1  — Ray
+The smoke still hangs where the barrel fell
+My hands still shake — I pulled myself to hell
+Twenty years I kept this town alive
+Now I'm here bargaining just to survive
+
+##CHORUS
+One more round — that's all I ask
+I carried this town upon my back
+I pulled the wrong trigger — but I'm not done
+Death, give me back my gun
+
+##VERSE 2  — Morte
+I've seen a thousand men like you
+The bottle won — and the trigger too
+You saved your lives — I kept the score
+But you're the one who knocked on my door
+
+##CHORUS  (repete)
+
+##BRIDGE
+I broke — but I won't stay broken
+The wrong shot's already been spoken
+~Give me one more round
+
+!Em desenvolvimento — continuação pendente`},
+
+            // ── JONMONKEY'S MIND ──────────────────────────────
+            {
+                id: 'gaza', num: '33', album: 'jon', title: 'Gaza',
+                credits: "Asylum | Lyrics: IV / Base: Jon Monkey", status: 'revisao', dur: '4:58',
+                suno: 'https://suno.com/song/379e4850-8257-4483-906c-de871343f3b5',
+                lyrics: `##PART 1
+My war has got no camera,
+no anchor and no breaking news.
+Just mud and hunger, water rising —
+a grave made out of what I used.
+
+##PART 2
+I scream, but echoes find
+the wrong direction every time.
+You chose a different kind of pain
+to call the edge, to call the line.
+
+##OUTRO
+While eyes bleed out beyond the borders
+for walls the world decided mattered,
+here the earth is drinking me alive
+and no one asks whose voice was shattered.
+
+##PART 3
+!(Melodia igual Part 1)
+I exist on the forgotten side
+of the same word that pain baptized.
+Two worlds that share a single name —
+but only one was recognized.
+
+##PART 4 / BRIDGE
+!(Melodia falada)
+I don't ask you to change your gaze...
+just know this while you look away:
+while the world keeps choosing its debate,
+~I'm slowly learning to decay  (Screamo)
+
+!(Mid Solo → Retorno à Part 1)
+
+##PART 1  (repete) → OUTRO  (repete)
+
+##CHORUS BUILDING
+Gaza is a name that pain divided,
+but the world only mourns for one of its sides.
+I'm drowning in silence from the other —
+and what's left of me slowly dies.
+
+I'm not a bomb, not a wall, not a headline,
+just someone the tide refused to spare.
+And while the screams from over there
+light up the satellite —
+mine never made it to the air.
+
+##FINAL
+~Forgotten... forgotten... forgotten...
+!(Solo Final)
+~Screams: FORGOTTEEEEEN —`},
+
+            // ── PATAPIM SESSIONS ──────────────────────────────
+            {
+                id: 'demon-cajon', num: '34', album: 'pat', title: 'Demon Cajon',
+                credits: 'Asylum | LGIV — Patapim Sessions', status: 'melodia', dur: '5:04',
+                suno: 'https://suno.com/song/442701e5-dc85-403c-be5c-94456d4e7995', lyrics: null
+            },
+
+        ]; // end SONGS
+
+        // ═══════════════════════════════════════════════════
+        // STATUS CONFIG
+        // ═══════════════════════════════════════════════════
+        const STATUS = {
+            live: { label: 'Ao Vivo 🎤', cls: 'stag-live' },
+            approved: { label: '✅ Aprovada', cls: 'stag-approved' },
+            letra: { label: '📝 Letra', cls: 'stag-letra' },
+            inst: { label: '🎸 Instrumental', cls: 'stag-inst' },
+            melodia: { label: '🎵 Melodia', cls: 'stag-melodia' },
+            analise: { label: '⚠️ Análise', cls: 'stag-analise' },
+            revisao: { label: '✏️ Revisão', cls: 'stag-revisao' },
+            dev: { label: '🔧 Em Dev', cls: 'stag-dev' },
+        };
+
+        // ═══════════════════════════════════════════════════
+        // LYRICS PARSER
+        // ═══════════════════════════════════════════════════
+        function parseLyrics(raw) {
+            if (!raw) return null;
+            const sections = [];
+            let current = { header: null, lines: [] };
+            for (const line of raw.split('\n')) {
+                const t = line.trim();
+                if (t.startsWith('##')) {
+                    if (current.lines.length > 0 || current.header) sections.push(current);
+                    current = { header: t.slice(2).trim(), lines: [] };
+                } else if (t === '') {
+                    current.lines.push({ type: 'spacer', text: '' });
+                } else if (t.startsWith('~')) {
+                    current.lines.push({ type: 'italic', text: t.slice(1).trim() });
+                } else if (t.startsWith('!')) {
+                    current.lines.push({ type: 'note', text: t.slice(1).trim() });
+                } else {
+                    current.lines.push({ type: 'normal', text: t });
+                }
+            }
+            if (current.lines.length > 0 || current.header) sections.push(current);
+            return sections;
+        }
+
+        // ═══════════════════════════════════════════════════
+        // STATE
+        // ═══════════════════════════════════════════════════
+        let activeAlbum = 'all';
+        let searchQuery = '';
+
+        // ═══════════════════════════════════════════════════
+        // RENDER
+        // ═══════════════════════════════════════════════════
+        function renderFilters() {
+            const nav = document.getElementById('filter-tabs');
+            nav.innerHTML = ALBUMS.map(a => `
+    <button class="tab ${activeAlbum === a.id ? 'active' : ''}" onclick="setAlbum('${a.id}')">
+      <span class="dot" style="background:${a.color}"></span>
+      ${a.name}
+    </button>
+  `).join('');
+        }
+
+        function renderCatalog() {
+            const main = document.getElementById('catalog');
+            const query = searchQuery.toLowerCase();
+
+            const albumsToShow = activeAlbum === 'all'
+                ? ALBUMS.filter(a => a.id !== 'all')
+                : ALBUMS.filter(a => a.id === activeAlbum);
+
+            let html = '';
+            let totalVisible = 0;
+
+            for (const album of albumsToShow) {
+                const albumSongs = SONGS.filter(s => {
+                    if (s.album !== album.id) return false;
+                    if (query && !s.title.toLowerCase().includes(query) && !s.credits.toLowerCase().includes(query)) return false;
+                    return true;
+                });
+                if (!albumSongs.length) continue;
+                totalVisible += albumSongs.length;
+
+                const st = STATUS;
+                html += `
+      <section class="album-section">
+        <div class="album-header">
+          <div class="album-stripe" style="background:${album.color}"></div>
+          <div>
+            <div class="album-title">${album.name}</div>
+            <div class="album-sub">${albumSongs.length} músicas</div>
+          </div>
+          ${album.playlist ? `<a href="${album.playlist}" target="_blank" class="album-link">▶ Playlist no Suno</a>` : ''}
+        </div>
+        <div class="song-grid">
+          ${albumSongs.map(s => {
+                    const hasLyr = !!s.lyrics;
+                    const stag = STATUS[s.status] || { label: s.status, cls: 'stag-inst' };
+                    return `
+            <div class="song-card ${!hasLyr ? 'no-lyrics' : ''}" onclick="${hasLyr ? `openModal('${s.id}')` : `window.open('${s.suno}','_blank')`}">
+              <div class="card-top">
+                <span class="card-num">${s.num}</span>
+                <div class="card-info">
+                  <div class="card-title">${s.title}</div>
+                  <div class="card-credits">${s.credits}</div>
+                </div>
+                <span class="card-dur">${s.dur}</span>
+              </div>
+              <div class="card-tags">
+                <span class="stag ${stag.cls}">${stag.label}</span>
+                ${hasLyr ? '<span class="stag stag-letra" style="opacity:.6;font-size:9px">📄 ver letra</span>' : '<span class="stag stag-inst" style="opacity:.7;font-size:9px">▶ abrir no Suno</span>'}
+              </div>
+              <span class="card-arrow" style="${!hasLyr ? 'color:var(--gray2)' : ''}">→</span>
+            </div>`;
+                }).join('')}
+        </div>
+      </section>`;
+            }
+
+            main.innerHTML = totalVisible ? html : '<div class="empty-state">Nenhuma música encontrada.</div>';
+        }
+
+        // ═══════════════════════════════════════════════════
+        // MODAL
+        // ═══════════════════════════════════════════════════
+        function openModal(id) {
+            const song = SONGS.find(s => s.id === id);
+            if (!song || !song.lyrics) return;
+            const album = ALBUMS.find(a => a.id === song.album);
+            const stag = STATUS[song.status] || { label: song.status, cls: 'stag-inst' };
+
+            document.getElementById('m-title').textContent = song.title;
+            document.getElementById('m-album').textContent = album ? album.name : '';
+            document.getElementById('m-credits').textContent = song.credits + ' · ' + song.dur;
+            document.getElementById('m-tags').innerHTML = `<span class="stag ${stag.cls}">${stag.label}</span>`;
+
+            const sunoEl = document.getElementById('m-suno');
+            sunoEl.href = song.suno;
+            sunoEl.style.display = song.suno ? 'inline-flex' : 'none';
+
+            if (!song.lyrics) {
+                const stMsg = song.status === 'melodia'
+                    ? '🎵 Melodia vocal gravada — letra ainda não escrita'
+                    : song.status === 'dev'
+                        ? '🔧 Em desenvolvimento — letra pendente'
+                        : '🎸 Instrumental — sem letra';
+                document.getElementById('m-lyrics').innerHTML = `
+      <div class="no-lyrics-msg">
+        <div class="icon">🎸</div>
+        <p style="font-size:15px;color:var(--gray2);margin-bottom:16px">${stMsg}</p>
+        <p style="font-size:13px;color:var(--gray);line-height:1.7">Esta música ainda não possui letra registrada.<br>
+        Clique em <strong style="color:var(--gold2)">Ouvir no Suno</strong> para escutar a versão instrumental.</p>
+      </div>`;
+                return;
+            }
+
+            const sections = parseLyrics(song.lyrics);
+            const lyricsHtml = sections.map(sec => `
+    <div class="lyrics-section">
+      ${sec.header ? `<div class="lyr-header">${sec.header}</div>` : ''}
+      <div class="lyr-lines">
+        ${sec.lines.map(ln => {
+                if (ln.type === 'spacer') return '<div class="lyr-line spacer"></div>';
+                if (ln.type === 'italic') return `<div class="lyr-line italic">${ln.text}</div>`;
+                if (ln.type === 'note') return `<div class="lyr-line note">— ${ln.text}</div>`;
+                return `<div class="lyr-line">${ln.text}</div>`;
+            }).join('')}
+      </div>
+    </div>
+  `).join('');
+
+            document.getElementById('m-lyrics').innerHTML = lyricsHtml;
+            document.getElementById('modal-overlay').classList.add('open');
+            document.getElementById('modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('open');
+            document.getElementById('modal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // ═══════════════════════════════════════════════════
+        // FILTER + SEARCH
+        // ═══════════════════════════════════════════════════
+        function setAlbum(id) {
+            activeAlbum = id;
+            renderFilters();
+            renderCatalog();
+        }
+
+        document.getElementById('search').addEventListener('input', function () {
+            searchQuery = this.value;
+            renderCatalog();
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ═══════════════════════════════════════════════════
+        // INIT
+        // ═══════════════════════════════════════════════════
+        renderFilters();
+        renderCatalog();
+    </script>
+</body>
+
+</html>
